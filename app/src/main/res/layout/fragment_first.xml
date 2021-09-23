@@ -15,9 +15,9 @@
         android:text="@string/reset_month"
         android:textAlignment="center"
         android:textSize="11sp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_prevMonth"
+        app:layout_constraintEnd_toStartOf="@+id/btn_nextMonth"
         app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toEndOf="@+id/btn_nextMonth"
+        app:layout_constraintStart_toEndOf="@+id/btn_prevMonth"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -33,7 +33,7 @@
         app:layout_constraintVertical_bias="0.732" />
 
     <Button
-        android:id="@+id/btn_prevMonth"
+        android:id="@+id/btn_nextMonth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -49,13 +49,13 @@
         android:layout_marginTop="76dp"
         android:text="@string/hello_first_fragment"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_prevMonth"
+        app:layout_constraintEnd_toStartOf="@+id/btn_nextMonth"
         app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toEndOf="@+id/btn_nextMonth"
+        app:layout_constraintStart_toEndOf="@+id/btn_prevMonth"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_nextMonth"
+        android:id="@+id/btn_prevMonth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -63,5 +63,14 @@
         android:text="@string/previous_month"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.helper.widget.Layer
+        android:id="@+id/layer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="reset_month"
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="58dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
