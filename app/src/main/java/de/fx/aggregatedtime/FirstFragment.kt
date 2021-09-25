@@ -1,18 +1,17 @@
 package de.fx.aggregatedtime
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.transition.Visibility
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.navigation.fragment.findNavController
-import androidx.room.Room
 import dagger.hilt.android.AndroidEntryPoint
 import de.fx.aggregatedtime.databinding.FragmentFirstBinding
 import de.fx.aggregatedtime.room.*
+import java.time.DateTimeException
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -41,10 +40,6 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        val project = Project(UUID.randomUUID(), "test", "desc", ProjectState.ACTIVE)
-        projectRepository.projectDao().insert(project)
-
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -54,28 +49,53 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        refresh()
+        refresh(view.context)
 
-        binding.buttonFirst.setOnClickListener {
+        /*binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }
+        }*/
         binding.btnNextMonth.setOnClickListener {
             actualMonth = actualMonth.plusMonths(1)
-            refresh()
+            refresh(view.context)
         }
         binding.btnPrevMonth.setOnClickListener {
             actualMonth = actualMonth.minusMonths(1)
-            refresh()
+            refresh(view.context)
         }
         binding.resetMonth.setOnClickListener {
             actualMonth = LocalDate.now()
-            refresh()
+            refresh(view.context)
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun refresh() {
+    private fun getDaysOfMonth(localDate: LocalDate): ArrayList<Day> {
+            val start: Calendar = Calendar.getInstance()
+        start.set(localDate.year,localDate.monthValue,localDate.dayOfMonth)
+
+        val days: ArrayList<Day> = arrayListOf()
+        for(d in 1 until start.getActualMaximum(Calendar.DAY_OF_MONTH)){
+            try {
+                days.add(Day(LocalDate.of(localDate.year, localDate.month, d), 0, -10))
+            } catch ( e: DateTimeException){
+                println("#### ERROR in DateParsing: $e")
+            }
+        }
+        return days
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun refresh(context: Context) {
         binding.actualMonth.text = actualMonth.format(DateTimeFormatter.ofPattern("MMM yyyy"))
+
+        val listView = binding.monthView
+        val projects = projectRepository.projectDao().getAll()
+
+        var days:ArrayList<Day> = getDaysOfMonth(actualMonth)
+
+        val adapter = DayAdapter(context, days, projectRepository)
+        listView.adapter = adapter
+
         if (actualMonth.year < LocalDate.now().year ||
             actualMonth.year == LocalDate.now().year && actualMonth.month < LocalDate.now().month
         ) {

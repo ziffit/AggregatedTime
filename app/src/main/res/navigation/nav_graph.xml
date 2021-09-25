@@ -13,16 +13,31 @@
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/SecondFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="de.fx.aggregatedtime.SecondFragment"
+        android:name="de.fx.aggregatedtime.DayFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_day">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <argument
+            android:name="day"
+            app:argType="de.fx.aggregatedtime.Day" />
     </fragment>
+
+    <fragment
+        android:id="@+id/SettingsFragment"
+        android:name="de.fx.aggregatedtime.SettingsFragment"
+        android:label="@string/settings_fragment_label"
+        tools:layout="@layout/fragment_settings">
+
+
+    </fragment>
+    <action android:id="@+id/action_global_SettingsFragment" app:destination="@id/SettingsFragment"/>
 </navigation>

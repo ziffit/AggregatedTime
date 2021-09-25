@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+                .setAction("Action", null).show()
         }
     }
 
@@ -56,5 +56,11 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+
+    fun onSettingsItemClick(item:MenuItem){
+        println("MENU SETTINGS CLICKET")
+        findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.action_global_SettingsFragment)
     }
 }

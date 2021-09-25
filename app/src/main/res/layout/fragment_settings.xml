@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="435dp"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/projectName"
+            android:layout_width="365dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="436dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:text="Name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.242"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Switch
+            android:id="@+id/projectActive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:minHeight="48dp"
+            android:text="@string/projectActive"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.056"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/projectDescription"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/projectDescription"
+            android:layout_width="365dp"
+            android:layout_height="88dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/projectName"
+            app:layout_constraintVertical_bias="0.103"
+            tools:ignore="SpeakableTextPresentCheck"
+            tools:layout_editor_absoluteX="17dp" />
+
+        <Button
+            android:id="@+id/btnProjectSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.582"
+            app:layout_constraintStart_toEndOf="@+id/projectActive"
+            app:layout_constraintTop_toBottomOf="@+id/projectDescription"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ListView
+            android:id="@+id/projectList"
+            android:layout_width="402dp"
+            android:layout_height="301dp"
+            app:layout_constraintBottom_toTopOf="@+id/projectName"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.439"
+            tools:layout_editor_absoluteX="5dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
