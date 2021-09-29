@@ -13,11 +13,13 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
+import androidx.core.view.get
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation.findNavController
 import de.fx.aggregatedtime.room.Project
 import de.fx.aggregatedtime.room.ProjectRepository
 import de.fx.aggregatedtime.room.ProjectState
+import de.fx.aggregatedtime.room.ProjectWithTimeAggregates
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
@@ -25,9 +27,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class DayAdapter(
+class TimeAdapter(
     private val context: Context,
-    private val dataSource: ArrayList<Day>,
+    private val dataSource: ArrayList<ProjectWithTimeAggregates>,
     private val projectRepository: ProjectRepository
 ) : BaseAdapter() {
     private val inflater: LayoutInflater =
@@ -53,26 +55,19 @@ class DayAdapter(
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         // Get view for row item
-        val rowView = inflater.inflate(R.layout.list_item_day, parent, false)
+        val rowView = inflater.inflate(R.layout.list_item_time, parent, false)
 
-        val dayView = rowView.findViewById(R.id.itemDayDate) as TextView
-        val dayAggegatedView = rowView.findViewById(R.id.itemDayAggegated) as TextView
-        val dayCalculatedView = rowView.findViewById(R.id.itemDayCalculated) as TextView
+        val projectView = rowView.findViewById(R.id.listItemTimeProject) as TextView
+        val aggregateView = rowView.findViewById(R.id.listItemTimeAggregate) as TextView
 
-        val day = getItem(position) as Day
+        val projectWithTimeAggregates = getItem(position) as ProjectWithTimeAggregates
 
-        dayView.text = "${day.date.dayOfMonth}. ${day.date.dayOfWeek.getDisplayName(TextStyle.FULL, context.resources.configuration.locales[0])}"
-
-        if(LocalDate.now().isEqual(day.date)){
-            rowView.setBackgroundColor(Color.RED)
-        }
-
-        dayAggegatedView.text = timeToString(day.aggegatedTime)
-        dayCalculatedView.text = "-5"
+        projectView.text = projectWithTimeAggregates.project.name
+        aggregateView.text =
+            projectWithTimeAggregates.timeAggregates.stream().mapToInt(){ it.minutes }.sum().toString()
 
         rowView.setOnClickListener {
-            val bundle = bundleOf("day" to day)
-            findNavController(parent).navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
+            parent.get(R.id.layerGroup).visibility = View.VISIBLE
         }
 
         return rowView

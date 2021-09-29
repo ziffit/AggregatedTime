@@ -15,6 +15,7 @@ import java.time.DateTimeException
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
+import java.util.stream.Collectors
 import javax.inject.Inject
 
 /**
@@ -72,11 +73,13 @@ class FirstFragment : Fragment() {
     private fun getDaysOfMonth(localDate: LocalDate): ArrayList<Day> {
             val start: Calendar = Calendar.getInstance()
         start.set(localDate.year,localDate.monthValue,localDate.dayOfMonth)
-
         val days: ArrayList<Day> = arrayListOf()
         for(d in 1 until start.getActualMaximum(Calendar.DAY_OF_MONTH)){
             try {
-                days.add(Day(LocalDate.of(localDate.year, localDate.month, d), 0, -10))
+                val date = LocalDate.of(localDate.year, localDate.month, d)
+                val timeAggregates = projectRepository.projectDao().getTimeAggregates(date)
+                val day = Day(date,timeAggregates.stream().mapToInt { it.minutes }.sum(),-10)
+                days.add(day)
             } catch ( e: DateTimeException){
                 println("#### ERROR in DateParsing: $e")
             }
@@ -89,7 +92,6 @@ class FirstFragment : Fragment() {
         binding.actualMonth.text = actualMonth.format(DateTimeFormatter.ofPattern("MMM yyyy"))
 
         val listView = binding.monthView
-        val projects = projectRepository.projectDao().getAll()
 
         var days:ArrayList<Day> = getDaysOfMonth(actualMonth)
 

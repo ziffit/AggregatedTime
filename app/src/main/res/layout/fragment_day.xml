@@ -5,25 +5,130 @@
     android:id="@+id/dayFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTintMode="src_over"
+    android:minWidth="300dp"
+    android:minHeight="300dp"
     tools:context=".DayFragment">
 
     <TextView
         android:id="@+id/fragmentDayInfo"
-        android:layout_width="312dp"
-        android:layout_height="112dp"
-        app:layout_constraintBottom_toTopOf="@id/button_second"
+        android:layout_width="333dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="64dp"
+        android:text="dummy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.48000002" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_second"
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/layerGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/previous"
+        android:visibility="invisible"
+        app:constraint_referenced_ids="textView3,layerTimeClose,view,hiddenActiveProjectId,fraygmendDayLayerTime,fragmendDayLayerTimeMinus15,fragmendDayLayerTimePlus15"
+        tools:visibility="gone" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="377dp"
+        android:layout_height="506dp"
+        android:background="#54B31919"
+        android:backgroundTint="#C58585"
+        android:fadingEdge="horizontal|vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.558"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.497" />
+
+    <Button
+        android:id="@+id/layerTimeClose"
+        android:layout_width="56dp"
+        android:layout_height="39dp"
+        android:text="X"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintHorizontal_bias="0.971"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:layout_constraintVertical_bias="0.021" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="237dp"
+        android:layout_height="39dp"
+        android:text="TextViewn egergerg"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/hiddenActiveProjectId"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:layout_constraintVertical_bias="0.133" />
+
+    <TextView
+        android:id="@+id/hiddenActiveProjectId"
+        android:layout_width="239dp"
+        android:layout_height="31dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintHorizontal_bias="0.826"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.044" />
+
+    <Spinner
+        android:id="@+id/fragmentDayProjectSpinner"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:layout_width="344dp"
+        android:layout_height="49dp"
+        android:dropDownSelector="@android:drawable/arrow_down_float"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragmentDayInfo" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="99dp"
+        android:layout_height="36dp"
+        android:text="Projekt"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toStartOf="@+id/textView3"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/fraygmendDayLayerTime"
+        android:layout_width="87dp"
+        android:layout_height="68dp"
+        android:text="fraygmendDayLayerTime"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
+    <Button
+        android:id="@+id/fragmendDayLayerTimeMinus15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-15"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toStartOf="@+id/fraygmendDayLayerTime"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
+    <Button
+        android:id="@+id/fragmendDayLayerTimePlus15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+15"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toEndOf="@+id/fraygmendDayLayerTime"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

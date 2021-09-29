@@ -9,5 +9,5 @@ import java.util.*
 data class TimeAggregate(
     @NonNull val projectId: UUID,
     @NonNull val date: LocalDate,
-    val minutes: Int,
+    var minutes: Int,
 )
